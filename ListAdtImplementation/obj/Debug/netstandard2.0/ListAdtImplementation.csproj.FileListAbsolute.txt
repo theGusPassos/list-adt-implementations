@@ -1,0 +1,8 @@
+C:\Users\Gustavo\Documents\_me\programming\ListAdtImplementation\ListAdtImplementation\bin\Debug\netstandard2.0\ListAdtImplementation.deps.json
+C:\Users\Gustavo\Documents\_me\programming\ListAdtImplementation\ListAdtImplementation\bin\Debug\netstandard2.0\ListAdtImplementation.dll
+C:\Users\Gustavo\Documents\_me\programming\ListAdtImplementation\ListAdtImplementation\bin\Debug\netstandard2.0\ListAdtImplementation.pdb
+C:\Users\Gustavo\Documents\_me\programming\ListAdtImplementation\ListAdtImplementation\obj\Debug\netstandard2.0\ListAdtImplementation.csprojAssemblyReference.cache
+C:\Users\Gustavo\Documents\_me\programming\ListAdtImplementation\ListAdtImplementation\obj\Debug\netstandard2.0\ListAdtImplementation.AssemblyInfoInputs.cache
+C:\Users\Gustavo\Documents\_me\programming\ListAdtImplementation\ListAdtImplementation\obj\Debug\netstandard2.0\ListAdtImplementation.AssemblyInfo.cs
+C:\Users\Gustavo\Documents\_me\programming\ListAdtImplementation\ListAdtImplementation\obj\Debug\netstandard2.0\ListAdtImplementation.dll
+C:\Users\Gustavo\Documents\_me\programming\ListAdtImplementation\ListAdtImplementation\obj\Debug\netstandard2.0\ListAdtImplementation.pdb
