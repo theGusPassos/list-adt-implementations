@@ -2,6 +2,7 @@
 using ListAdtImplementation.Collections;
 using NUnit.Framework;
 using System;
+using System.Numerics;
 
 namespace ListAdtImplementation.UnitTests.Collections
 {
@@ -11,7 +12,7 @@ namespace ListAdtImplementation.UnitTests.Collections
         private const int vectorInitialCapacity = 16;
 
         [TestFixture]
-        public class Creation
+        public class Creating
         {
             [Test]
             public void ShouldSetCapacityTo16WhenNotSpecified()
@@ -137,6 +138,51 @@ namespace ListAdtImplementation.UnitTests.Collections
                 second.Add(4, 5, 6);
 
                 (first == second).Should().BeFalse();
+            }
+        }
+    
+        [TestFixture]
+        public class Clearing
+        {
+            [Test]
+            public void ShouldSetCountToZero()
+            {
+                var vector = new VectorAdt<int>();
+                vector.Add(1, 2, 3);
+                vector.Clear();
+
+                vector.Count.Should().Be(0);
+            }
+
+            [Test]
+            public void ShouldThrowIndexOutOfRangeAfterClear()
+            {
+                var vector = new VectorAdt<int>();
+                vector.Add(1, 2, 3);
+                vector.Clear();
+
+                Action act = () => vector.Get(0);
+                act.Should().Throw<IndexOutOfRangeException>();
+            }        
+        }
+    
+        [TestFixture]
+        public class Enumerating
+        {
+            [Test]
+            public void ShouldBeEnumerable()
+            {
+                var vector = new VectorAdt<int>();
+                vector.Add(1, 2, 3, 4);
+
+                var copyVector = new VectorAdt<int>();
+
+                foreach (var curr in vector)
+                {
+                    copyVector.Add(curr);
+                }
+
+                (vector == copyVector).Should().BeTrue();
             }
         }
     }
