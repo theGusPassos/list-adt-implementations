@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ListAdtImplementation.Collections
 {
-    public class VectorAdt<Obj> : IEnumerable<Obj>
+    public class VectorAdt<Obj> : ICollection<Obj>, IEnumerable<Obj>
     {
         private const int baseCapacity = 16;
 
@@ -87,6 +87,8 @@ namespace ListAdtImplementation.Collections
 
             Count = 0;
         }
+
+        public bool Empty() => Count == 0;
 
         IEnumerator IEnumerable.GetEnumerator()
         {

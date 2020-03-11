@@ -200,5 +200,26 @@ namespace ListAdtImplementation.UnitTests.Collections
                 vector[0].Should().Be(2);
             }
         }
+
+        [TestFixture]
+        public class Emptyness
+        {
+            [Test]
+            public void ShouldReturnTrueWithoutValues()
+            {
+                var vector = new VectorAdt<int>();
+
+                vector.Empty().Should().BeTrue();
+            }
+
+            [Test]
+            public void ShouldReturnFalseWithValues()
+            {
+                var vector = new VectorAdt<int>();
+                vector.Add(1, 2, 3);
+
+                vector.Empty().Should().BeFalse();
+            }
+        }
     }
 }
