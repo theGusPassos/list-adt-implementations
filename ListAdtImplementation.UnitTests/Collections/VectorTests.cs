@@ -185,5 +185,20 @@ namespace ListAdtImplementation.UnitTests.Collections
                 (vector == copyVector).Should().BeTrue();
             }
         }
+    
+        [TestFixture]
+        public class Assigning
+        {
+            [Test]
+            public void ShouldSetNewValue()
+            {
+                var vector = new VectorAdt<int>();
+                vector.Add(1);
+
+                vector[0] = 2;
+
+                vector[0].Should().Be(2);
+            }
+        }
     }
 }

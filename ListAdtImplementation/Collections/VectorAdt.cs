@@ -72,7 +72,7 @@ namespace ListAdtImplementation.Collections
             return array[index];
         }
 
-        public void Set(int index, Obj value)
+        private void Set(int index, Obj value)
         {
             if (index >= Capacity)
                 throw new IndexOutOfRangeException();
