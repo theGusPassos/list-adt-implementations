@@ -47,6 +47,17 @@ namespace ListAdtImplementation.Collections
             }
         }
 
+        public void AddAt(Obj obj, int index)
+        {
+            for (int i = Count; i > index; i--)
+            {
+                array[i] = array[i - 1];
+            }
+
+            array[index] = obj;
+            Count++;
+        }
+
         private void DoubleCapacity()
         {
             Capacity *= 2;

@@ -92,8 +92,42 @@ namespace ListAdtImplementation.UnitTests.Collections
                 vector.Add(1, 2, 3, 4);
                 vector.Count.Should().Be(4);
             }
+
+            [TestFixture]
+            public class AddAt
+            {
+                private VectorAdt<int> vector;
+
+                [OneTimeSetUp]
+                public void AddAtSecondPosition()
+                {
+                    vector = new VectorAdt<int>();
+                    vector.Add(1, 2, 3, 4);
+                    vector.AddAt(5, 1);
+                }
+
+                [Test]
+                public void ShouldAtSecondPosition()
+                {
+                    vector[1].Should().Be(5);
+                }
+
+                [Test]
+                public void ShouldSumToCount()
+                {
+                    vector.Count.Should().Be(5);
+                }
+
+                [Test]
+                public void ShouldHaveNewOrganizationForVector()
+                {
+                    var expectedVector = new VectorAdt<int>();
+                    expectedVector.Add(1, 5, 2, 3, 4);
+                    (vector == expectedVector).Should().BeTrue();
+                }
+            }
         }
-    
+
         [TestFixture]
         public class Getting
         {
@@ -111,12 +145,12 @@ namespace ListAdtImplementation.UnitTests.Collections
                 var vector = new VectorAdt<int>();
                 Action act = () => vector.Get(0);
                 act.Should().Throw<IndexOutOfRangeException>();
-            }            
+            }
         }
 
         [TestFixture]
         public class Equality
-        { 
+        {
             [Test]
             public void ShouldBeEqual()
             {
@@ -140,7 +174,7 @@ namespace ListAdtImplementation.UnitTests.Collections
                 (first == second).Should().BeFalse();
             }
         }
-    
+
         [TestFixture]
         public class Clearing
         {
@@ -163,9 +197,9 @@ namespace ListAdtImplementation.UnitTests.Collections
 
                 Action act = () => vector.Get(0);
                 act.Should().Throw<IndexOutOfRangeException>();
-            }        
+            }
         }
-    
+
         [TestFixture]
         public class Enumerating
         {
@@ -185,7 +219,7 @@ namespace ListAdtImplementation.UnitTests.Collections
                 (vector == copyVector).Should().BeTrue();
             }
         }
-    
+
         [TestFixture]
         public class Assigning
         {
