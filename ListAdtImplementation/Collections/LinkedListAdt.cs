@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace ListAdtImplementation.Collections
 {
@@ -47,7 +48,7 @@ namespace ListAdtImplementation.Collections
             Count++;
         }
 
-        public bool Empty() => Count == 0; 
+        public bool Empty() => Count == 0;
 
         public void RemoveFromStart()
         {
@@ -94,6 +95,47 @@ namespace ListAdtImplementation.Collections
                 Tail = previousFromTail;
 
             Count--;
+        }
+
+        public void Remove(LinkedListNode nodeToRemove)
+        {
+            if (nodeToRemove == Head)
+            {
+                RemoveFromStart();
+                return;
+            }
+            
+            if (nodeToRemove == Tail)
+            {
+                RemoveFromEnd();
+                return;
+            }
+
+            nodeToRemove.Previous.Next = nodeToRemove.Next;
+            nodeToRemove.Next.Previous = nodeToRemove.Previous;
+            Count--;
+        }
+
+        public LinkedListNode SearchValue(Obj value)
+        {
+            var currentNode = Head;
+
+            do
+            {
+                if (currentNode.Value.Equals(value))
+                    return currentNode;
+
+                currentNode = currentNode.Next;
+            }
+            while (currentNode.Next != null);
+
+            return default;
+        }
+
+        public void Clear()
+        {
+            Head = Tail = null;
+            Count = 0;
         }
 
         public class LinkedListNode

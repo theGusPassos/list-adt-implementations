@@ -407,22 +407,102 @@ namespace ListAdtImplementation.UnitTests.Collections
         [TestFixture]
         public class Remove
         {
+            private LinkedListAdt<int> linkedList;
+            private LinkedListAdt<int>.LinkedListNode removedNode;
+            private int startCount;
+
+            [OneTimeSetUp]
+            public void RemoveFromMiddle()
+            {
+                linkedList = new LinkedListAdt<int>();
+                linkedList.AddToStart(1);
+                linkedList.AddToEnd(2);
+                linkedList.AddToEnd(3);
+
+                startCount = linkedList.Count;
+                removedNode = linkedList.Head.Next;
+
+                linkedList.Remove(removedNode);
+            }
+
+            [Test]
+            public void ShouldRemoveFromCount()
+            {
+                linkedList.Count.Should().Be(startCount - 1);
+            }
+
+            [Test]
+            public void HeadNextShouldNotBeRemovedOne()
+            {
+                linkedList.Head.Next.Should().NotBe(removedNode);
+            }
+
+            [Test]
+            public void HeadNextShouldBeTail()
+            {
+                linkedList.Head.Next.Should().Be(linkedList.Tail);
+            }
         }
 
         [TestFixture]
         public class SearchValue
         {
+            [Test]
+            public void ShouldReturnTail()
+            {
+                var linkedList = new LinkedListAdt<int>();
+                linkedList.AddToStart(1);
+                linkedList.AddToStart(2);
+                linkedList.AddToStart(3);
+
+                linkedList.SearchValue(1).Should().Be(linkedList.Tail);
+            }
+
+            [Test]
+            public void ShouldReturnNull()
+            {
+                var linkedList = new LinkedListAdt<int>();
+                linkedList.AddToStart(1);
+                linkedList.AddToStart(2);
+                linkedList.AddToStart(3);
+
+                linkedList.SearchValue(100).Should().BeNull();
+            }
         }
 
         [TestFixture]
         public class Clearing
         {
-        }
+            private LinkedListAdt<int> linkedList;
 
-        [TestFixture]
-        public class Traversing
-        {
+            [OneTimeSetUp]
+            public void ClearLinkedList()
+            {
+                linkedList = new LinkedListAdt<int>();
+                linkedList.AddToStart(2);
+                linkedList.AddToEnd(1);
+                linkedList.AddToEnd(3);
 
+                linkedList.Clear();
+            }
+
+            [Test]
+            public void ShouldSetCountToZero()
+            {
+                linkedList.Count.Should().Be(0);
+            }
+
+            [Test]
+            public void ShouldSetHeadToNull()
+            {
+                linkedList.Head.Should().BeNull();
+            }
+
+            [Test]
+            public void ShouldSetTailToNull()
+            {
+                linkedList.Tail.Should().BeNull();
+            }
         }
     }
 }
