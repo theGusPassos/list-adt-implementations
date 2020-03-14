@@ -76,6 +76,24 @@ namespace ListAdtImplementation.Collections
 
         public void RemoveFromEnd()
         {
+            if (Empty())
+                throw new InvalidOperationException();
+
+            if (Tail == null)
+            {
+                Head = null;
+                Count--;
+                return;
+            }
+
+            var previousFromTail = Tail.Previous;
+            previousFromTail.Next = null;
+            Tail = null;
+
+            if (previousFromTail != Head)
+                Tail = previousFromTail;
+
+            Count--;
         }
 
         public class LinkedListNode

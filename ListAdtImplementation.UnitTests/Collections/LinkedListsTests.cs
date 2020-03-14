@@ -333,8 +333,96 @@ namespace ListAdtImplementation.UnitTests.Collections
                 [Test]
                 public void ShouldReturnException()
                 {
+                    var linkedList = new LinkedListAdt<int>();
+                    Action act = () => linkedList.RemoveFromEnd();
+                    act.Should().Throw<InvalidOperationException>();
                 }
             }
+
+            [TestFixture]
+            public class WithOnlyHead
+            {
+                private LinkedListAdt<int> linkedList;
+                private int startCount;
+ 
+                [OneTimeSetUp]
+                public void RemoveFromListWithOnlyHead()
+                {
+                    linkedList = new LinkedListAdt<int>();
+                    linkedList.AddToStart(1);
+                    startCount = linkedList.Count;
+                    linkedList.RemoveFromEnd();
+                }
+
+                [Test]
+                public void ShouldSetHeadToNull()
+                {
+                    linkedList.Head.Should().BeNull();
+                }
+
+                [Test]
+                public void ShouldSubtractFromCount()
+                {
+                    linkedList.Count.Should().Be(startCount - 1);
+                }
+            }
+        
+            [TestFixture]
+            public class WithHeadAndTail
+            {
+                private LinkedListAdt<int> linkedList;
+                private int startCount;
+
+                [OneTimeSetUp]
+                public void RemoveFromListWithHeadAndTail()
+                {
+                    linkedList = new LinkedListAdt<int>();
+                    linkedList.AddToStart(1);
+                    linkedList.AddToEnd(2);
+                    startCount = linkedList.Count;
+
+                    linkedList.RemoveFromEnd();
+                }
+
+                [Test]
+                public void ShouldHaveTailNull()
+                {
+                    linkedList.Tail.Should().BeNull();
+                }
+
+                [Test]
+                public void ShouldHeaveHeadNextNull()
+                {
+                    linkedList.Head.Next.Should().BeNull();
+                }
+
+                [Test]
+                public void ShouldSubtractFromCount()
+                {
+                    linkedList.Count.Should().Be(startCount - 1);
+                }
+            }
+        }
+    
+        [TestFixture]
+        public class Remove
+        {
+        }
+
+        [TestFixture]
+        public class SearchValue
+        {
+        }
+
+        [TestFixture]
+        public class Clearing
+        {
+        }
+
+        [TestFixture]
+        public class Traversing
+        {
+
         }
     }
 }
