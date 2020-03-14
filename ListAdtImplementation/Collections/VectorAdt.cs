@@ -99,6 +99,27 @@ namespace ListAdtImplementation.Collections
             Count = 0;
         }
 
+        public void RemoveAt(int index)
+        {
+            for (int i = Count - 1; i > index; i--)
+            {
+                array[i - 1] = array[i];
+            }
+
+            Count--;
+        }
+
+        public void Remove(Obj obj)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (array[i].Equals(obj))
+                {
+                    RemoveAt(i);
+                }
+            }
+        }
+
         public bool Empty() => Count == 0;
 
         IEnumerator IEnumerable.GetEnumerator()

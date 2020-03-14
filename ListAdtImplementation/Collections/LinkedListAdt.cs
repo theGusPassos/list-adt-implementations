@@ -1,4 +1,7 @@
-﻿namespace ListAdtImplementation.Collections
+﻿using System;
+using System.Collections.Generic;
+
+namespace ListAdtImplementation.Collections
 {
     public class LinkedListAdt<Obj>
     {
@@ -18,7 +21,7 @@
             {
                 Head = new LinkedListNode(obj);
             }
-            
+
             Count++;
         }
 
@@ -42,6 +45,37 @@
             }
 
             Count++;
+        }
+
+        public bool Empty() => Count == 0; 
+
+        public void RemoveFromStart()
+        {
+            if (Empty())
+                throw new InvalidOperationException();
+
+            if (Head == null) return;
+            if (Head.Next == null)
+            {
+                Head = null;
+                Count--;
+                return;
+            }
+
+            if (Head.Next == Tail)
+            {
+                Tail = null;
+            }
+
+            var nextHead = Head.Next;
+            nextHead.Previous = null;
+            Head = nextHead;
+
+            Count--;
+        }
+
+        public void RemoveFromEnd()
+        {
         }
 
         public class LinkedListNode

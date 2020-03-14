@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using ListAdtImplementation.Collections;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace ListAdtImplementation.UnitTests.Collections
@@ -68,7 +69,7 @@ namespace ListAdtImplementation.UnitTests.Collections
                     var oldHeadNode = linkedList.Head.Next;
                     linkedList.Head.Next.Should().Be(oldHeadNode);
                 }
-                
+
                 [Test]
                 public void OldHeadPreviousShouldBeNewHead()
                 {
@@ -81,7 +82,7 @@ namespace ListAdtImplementation.UnitTests.Collections
                 {
                     linkedList.Head.Next.Value.Should().Be(oldHead);
                 }
-                
+
                 [Test]
                 public void CountShouldBeTwo()
                 {
@@ -212,6 +213,126 @@ namespace ListAdtImplementation.UnitTests.Collections
                 public void OldTailValueShouldNotChange()
                 {
                     oldTail.Value.Should().Be(oldTailValue);
+                }
+            }
+        }
+
+        [TestFixture]
+        public class Empty
+        {
+            [Test]
+            public void ShouldStartEmpty()
+            {
+                new LinkedListAdt<int>().Empty().Should().BeTrue();
+            }
+
+            [Test]
+            public void ShouldNotBeEmptyWithValues()
+            {
+                var linkedList = new LinkedListAdt<int>();
+                linkedList.AddToStart(1);
+                linkedList.Empty().Should().BeFalse();
+            }
+        }
+
+        [TestFixture]
+        public class RemoveFromStart
+        {
+            [TestFixture]
+            public class WithoutValues
+            {
+                [Test]
+                public void ShouldReturnException()
+                {
+                    var linkedList = new LinkedListAdt<int>();
+                    Action act = () => linkedList.RemoveFromStart();
+                    act.Should().Throw<InvalidOperationException>();
+                }
+            }
+
+            [TestFixture]
+            public class WithOnlyHead
+            {
+                private LinkedListAdt<int> linkedList;
+                private int startCount;
+
+                [OneTimeSetUp]
+                public void RemoveFromListWithOnlyHead()
+                {
+                    linkedList = new LinkedListAdt<int>();
+                    linkedList.AddToStart(1);
+                    startCount = linkedList.Count;
+                    linkedList.RemoveFromStart();
+                }
+
+                [Test]
+                public void ShouldSetHeadToNull()
+                {
+                    linkedList.Head.Should().BeNull();
+                }
+
+                [Test]
+                public void ShouldSubtractFromCount()
+                {
+                    linkedList.Count.Should().Be(startCount - 1);
+                }
+            }
+
+            [TestFixture]
+            public class WithHeadAndTail
+            {
+                private LinkedListAdt<int> linkedList;
+                private LinkedListAdt<int>.LinkedListNode oldTail;
+                private const int tailValue = 2;
+                private int startCount;
+
+                [OneTimeSetUp]
+                public void RemoveFromListWithHeadAndTail()
+                {
+                    linkedList = new LinkedListAdt<int>();
+                    linkedList.AddToStart(1);
+                    linkedList.AddToEnd(tailValue);
+                    startCount = linkedList.Count;
+                    oldTail = linkedList.Tail;
+
+                    linkedList.RemoveFromStart();
+                }
+
+                [Test]
+                public void ShouldHaveHeadAsOldTail()
+                { 
+                    linkedList.Head.Should().Be(oldTail);
+                }
+
+                [Test]
+                public void ShouldHaveHeadWithNullPrevious()
+                {
+                    linkedList.Head.Previous.Should().BeNull();
+                }
+
+                [Test]
+                public void ShouldHaveTailNull()
+                {
+                    linkedList.Tail.Should().BeNull();
+                }
+                
+                [Test]
+                public void ShouldSubtractFromCount()
+                {
+                    linkedList.Count.Should().Be(startCount - 1);
+                }
+            }
+        }
+
+        [TestFixture]
+        public class RemoveFromEnd
+        {
+            [TestFixture]
+            public class WithoutValues
+            {
+                [Test]
+                public void ShouldReturnException()
+                {
                 }
             }
         }

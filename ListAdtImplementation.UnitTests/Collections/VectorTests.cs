@@ -201,6 +201,61 @@ namespace ListAdtImplementation.UnitTests.Collections
         }
 
         [TestFixture]
+        public class RemoveAt
+        {
+            [Test]
+            public void ShouldHaveDifferentValueInIndex()
+            {
+                const int valueToRemove = 3;
+                const int indexToRemove = 2;
+                var vector = new VectorAdt<int>();
+                vector.Add(1, 2, 3, 4);
+                vector.RemoveAt(indexToRemove);
+                vector[indexToRemove].Should().Be(4);
+            }
+
+            [Test]
+            public void ShouldSubtractFromCount()
+            {
+                int startCount;
+                var vector = new VectorAdt<int>();
+                vector.Add(1, 2, 3);
+                startCount = vector.Count;
+
+                vector.RemoveAt(1);
+                vector.Count.Should().Be(startCount - 1);
+            }
+        }
+
+        [TestFixture]
+        public class Remove
+        { 
+            [Test]
+            public void ShouldHaveDifferentValueInIndex()
+            {
+                const int valueToRemove = 2;
+                const int indexToRemove = 1;
+                var vector = new VectorAdt<int>();
+                vector.Add(1, 2, 3);
+                vector.Remove(valueToRemove);
+
+                vector[indexToRemove].Should().Be(3);
+            }
+
+            [Test]
+            public void ShouldSubtractFromCount()
+            {
+                int startCount;
+                var vector = new VectorAdt<int>();
+                vector.Add(1, 2, 3);
+                startCount = vector.Count;
+
+                vector.Remove(2);
+                vector.Count.Should().Be(startCount - 1);
+            }
+        }
+
+        [TestFixture]
         public class Enumerating
         {
             [Test]
