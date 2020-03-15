@@ -504,5 +504,33 @@ namespace ListAdtImplementation.UnitTests.Collections
                 linkedList.Tail.Should().BeNull();
             }
         }
+    
+        [TestFixture]
+        public class Enumerator
+        {
+            private List<int> resultList;
+            private List<int> valueList;
+
+            [OneTimeSetUp]
+            public void EnumerateLinkedList()
+            {
+                resultList = new List<int>();
+                valueList = new List<int>();
+                valueList.AddRange(new int[] { 1, 2, 3, 4 });
+
+                var linkedList = new LinkedListAdt<int>();
+                foreach (var value in valueList)
+                    linkedList.AddToEnd(value);
+                
+                foreach(var value in linkedList)
+                    resultList.Add(value);
+            }
+
+            [Test]
+            public void ListShouldContainValuesAdded()
+            {
+                resultList.Should().BeEquivalentTo(valueList);
+            }
+        }
     }
 }

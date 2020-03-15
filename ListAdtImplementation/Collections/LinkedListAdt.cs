@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ListAdtImplementation.Collections
 {
-    public class LinkedListAdt<Obj>
+    public class LinkedListAdt<Obj> : IEnumerable<Obj>
     {
         public LinkedListNode Head { get; private set; }
         public LinkedListNode Tail { get; private set; }
@@ -147,6 +149,16 @@ namespace ListAdtImplementation.Collections
             Count = 0;
         }
 
+        public IEnumerator<Obj> GetEnumerator()
+        {
+            return new LinkedListAdtEnum(Head);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
         public class LinkedListNode
         {
             public LinkedListNode Next { get; set; }
@@ -159,6 +171,33 @@ namespace ListAdtImplementation.Collections
                 Next = next;
                 Previous = previous;
             }
+        }
+
+        private class LinkedListAdtEnum : IEnumerator<Obj>
+        {
+            private readonly LinkedListNode head;
+            private LinkedListNode currentNode;
+
+            public Obj Current => currentNode.Value;
+            object IEnumerator.Current => Current;
+
+            public LinkedListAdtEnum(LinkedListNode head)
+            {
+                this.head = currentNode = new LinkedListNode(default, next: head);
+            }
+
+            public bool MoveNext()
+            {
+                currentNode = currentNode.Next;
+                return (currentNode != null);
+            }
+
+            public void Reset()
+            {
+                currentNode = head;
+            }
+            
+            public void Dispose() { }
         }
     }
 }
