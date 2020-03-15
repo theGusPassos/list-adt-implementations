@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 
 namespace ListAdtImplementation.Collections
 {
@@ -8,6 +6,17 @@ namespace ListAdtImplementation.Collections
     {
         public LinkedListNode Head { get; private set; }
         public LinkedListNode Tail { get; private set; }
+        public LinkedListNode LastNode
+        {
+            get
+            {
+                var last = Tail != null
+                    ? Tail
+                    : Head;
+                return last;
+            }
+        }
+
         public int Count { get; private set; }
 
         public void AddToStart(Obj obj)
