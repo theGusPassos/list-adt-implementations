@@ -102,6 +102,44 @@ namespace ListAdtImplementation.UnitTests.Collections
                 public void RootShouldBeOriginalValue()
                     => binarySearchTree.Root.Value.Should().Be(rootValue);
             }
+
+            [TestFixture]
+            public class AddMultiple
+            {
+                private BinarySearchTree<int> binarySearchTree;
+                private const int rootValue = 5;
+
+                [OneTimeSetUp]
+                public void AddMultipleValues()
+                {
+                    binarySearchTree = new BinarySearchTree<int>();
+                    binarySearchTree.Add(rootValue);
+                    binarySearchTree.Add(rootValue - 1);
+                    binarySearchTree.Add(rootValue - 2);
+                    binarySearchTree.Add(rootValue + 1);
+                    binarySearchTree.Add(rootValue + 2);
+                }
+
+                [Test]
+                public void RootShouldBeRootValue()
+                    => binarySearchTree.Root.Value.Should().Be(rootValue);
+
+                [Test]
+                public void RootLeftShouldBeRootMinusOne()
+                    => binarySearchTree.Root.Left.Value.Should().Be(rootValue - 1);
+
+                [Test]
+                public void RootLeftLeftShouldBeRootMinusTwo()
+                    => binarySearchTree.Root.Left.Left.Value.Should().Be(rootValue - 2);
+
+                [Test]
+                public void RootRightShouldBeRootPlusOne()
+                    => binarySearchTree.Root.Right.Value.Should().Be(rootValue + 1);
+
+                [Test]
+                public void RootRightRightShouldBeRootPlusTwo()
+                    => binarySearchTree.Root.Right.Right.Value.Should().Be(rootValue + 2);
+            }
         }
     }
 }

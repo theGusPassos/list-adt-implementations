@@ -11,18 +11,29 @@ namespace ListAdtImplementation.Collections
             if (Root == null)
                 Root = new Node { Value = value };
 
-            if (Root.Value.CompareTo(value) == 0)
-                return;
-
-            if (value.CompareTo(Root.Value) > 0)
+            Node currentNode = Root;
+            while (value.CompareTo(currentNode.Value) != 0)
             {
-                var newNode = new Node { Value = value, Parent = Root };
-                Root.Right = newNode;
-            }
-            else
-            {
-                var newNode = new Node { Value = value, Parent = Root };
-                Root.Left = newNode;
+                if (value.CompareTo(currentNode.Value) < 0)
+                {
+                    if (currentNode.Left == null)
+                    {
+                        var newNode = new Node { Value = value, Parent = currentNode };
+                        currentNode.Left = newNode;
+                    }
+                        
+                    currentNode = currentNode.Left;
+                }
+                else
+                {
+                    if (currentNode.Right == null)
+                    {
+                        var newNode = new Node { Value = value, Parent = currentNode };
+                        currentNode.Right = newNode;
+                    }
+                        
+                    currentNode = currentNode.Right;
+                }
             }
         }
 
