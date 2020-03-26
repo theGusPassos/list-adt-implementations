@@ -39,6 +39,15 @@ namespace ListAdtImplementation.Collections
 
         public bool Search(T value)
         {
+            var currentNode = Root;
+            while(currentNode != null)
+            {
+                int diff = value.CompareTo(currentNode.Value);
+                if (diff == 0) return true;
+                if (diff < 0) currentNode = currentNode.Left;
+                else currentNode = currentNode.Right;
+            }
+
             return false;
         }
 
