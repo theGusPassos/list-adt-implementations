@@ -37,6 +37,11 @@ namespace ListAdtImplementation.Collections
             }
         }
 
+        public bool Search(T value)
+        {
+            return false;
+        }
+
         public class Node
         {
             public Node Left { get; set; }

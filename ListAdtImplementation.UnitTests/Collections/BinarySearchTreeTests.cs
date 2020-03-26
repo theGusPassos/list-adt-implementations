@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using FluentAssertions;
 using ListAdtImplementation.Collections;
 using NUnit.Framework;
 
@@ -139,6 +140,54 @@ namespace ListAdtImplementation.UnitTests.Collections
                 [Test]
                 public void RootRightRightShouldBeRootPlusTwo()
                     => binarySearchTree.Root.Right.Right.Value.Should().Be(rootValue + 2);
+            }
+        }
+
+        [TestFixture]
+        public class Searching
+        {
+            [Test]
+            public void ShouldReturnFalseInEmptyTree()
+            {
+                var binarySearchTree = new BinarySearchTree<int>();
+                binarySearchTree.Search(1).Should().BeFalse();
+            }
+
+            [Test]
+            public void ShouldReturnTrueIfIsRoot()
+            {
+                var binarySearchTree = new BinarySearchTree<int>();
+                binarySearchTree.Add(1);
+                binarySearchTree.Search(1).Should().BeTrue();
+            }
+
+            [Test]
+            public void ShouldReturnFalseIfNotFound()
+            {
+                var binarySearchTree = new BinarySearchTree<int>();
+                var faker = new Faker();
+
+                for (int i = 0; i < 20; i++)
+                {
+                    binarySearchTree.Add(faker.Random.Int(0, int.MaxValue));
+                }
+
+                binarySearchTree.Search(int.MinValue).Should().BeFalse();
+            }
+
+            [Test]
+            public void ShouldReturnTrueIfFound()
+            {
+                var binarySearchTree = new BinarySearchTree<int>();
+                var faker = new Faker();
+
+                for (int i = 0; i < 20; i++)
+                {
+                    binarySearchTree.Add(faker.Random.Int(0, int.MaxValue));
+                }
+
+                binarySearchTree.Add(1);
+                binarySearchTree.Search(1).Should().BeTrue();
             }
         }
     }
