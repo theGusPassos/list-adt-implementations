@@ -150,7 +150,7 @@ namespace ListAdtImplementation.UnitTests.Collections
             public void ShouldReturnFalseInEmptyTree()
             {
                 var binarySearchTree = new BinarySearchTree<int>();
-                binarySearchTree.Search(1).Should().BeFalse();
+                binarySearchTree.Contains(1).Should().BeFalse();
             }
 
             [Test]
@@ -158,7 +158,7 @@ namespace ListAdtImplementation.UnitTests.Collections
             {
                 var binarySearchTree = new BinarySearchTree<int>();
                 binarySearchTree.Add(1);
-                binarySearchTree.Search(1).Should().BeTrue();
+                binarySearchTree.Contains(1).Should().BeTrue();
             }
 
             [Test]
@@ -172,7 +172,7 @@ namespace ListAdtImplementation.UnitTests.Collections
                     binarySearchTree.Add(faker.Random.Int(0, int.MaxValue));
                 }
 
-                binarySearchTree.Search(int.MinValue).Should().BeFalse();
+                binarySearchTree.Contains(int.MinValue).Should().BeFalse();
             }
 
             [Test]
@@ -187,7 +187,92 @@ namespace ListAdtImplementation.UnitTests.Collections
                 }
 
                 binarySearchTree.Add(1);
-                binarySearchTree.Search(1).Should().BeTrue();
+                binarySearchTree.Contains(1).Should().BeTrue();
+            }
+        }
+    
+        [TestFixture]
+        public class Deleting
+        {
+            [Test]
+            public void ShouldDoNothingInEmptyTree()
+            {
+                var binaryTree = new BinarySearchTree<int>();
+                binaryTree.Remove(1);
+                binaryTree.Root.Should().BeNull();
+            }
+
+            [Test]
+            public void ShouldDeleteRootWhenIsRoot()
+            {
+                var binaryTree = new BinarySearchTree<int>();
+                binaryTree.Add(1);
+                binaryTree.Remove(1);
+                binaryTree.Root.Should().BeNull();
+            }
+
+            [Test]
+            public void ShouldRemoveNodeIfIsLeaf()
+            {
+                var binaryTree = new BinarySearchTree<int>();
+                binaryTree.Add(1);
+                binaryTree.Add(2);
+                binaryTree.Remove(2);
+                binaryTree.Root.IsLeaf().Should().BeTrue();
+            }
+
+            [TestFixture]
+            public class DeleteWithOneChild
+            {
+                private BinarySearchTree<int> binaryTree;
+
+                [OneTimeSetUp]
+                public void CreateTree()
+                {
+                    binaryTree = new BinarySearchTree<int>();
+                    binaryTree.Add(1);
+                    binaryTree.Add(2);
+                    binaryTree.Add(3);
+                    binaryTree.Remove(2);
+                }
+
+                [Test]
+                public void RemovedShouldNotExistInTree()
+                    => binaryTree.Contains(2).Should().BeFalse();
+
+                [Test]
+                public void HeadRightChildShouldBeDeletedChild()
+                    => binaryTree.Root.Right.Value.Should().Be(3);
+            }
+
+            [TestFixture]
+            public class DeleteWithTwoChildren
+            {
+                private BinarySearchTree<int> binaryTree;
+
+                [OneTimeSetUp]
+                public void CreateTree()
+                {
+                    binaryTree = new BinarySearchTree<int>();
+                    binaryTree.Add(1);
+                    binaryTree.Add(3);
+                    // 3 children
+                    binaryTree.Add(2);
+                    binaryTree.Add(4);
+                    binaryTree.Remove(3);
+                }
+
+                [Test]
+                public void DeletedShouldNotExist()
+                    => binaryTree.Contains(3).Should().BeFalse();
+
+                [Test]
+                public void DeletedShouldBeReplacedByMinChild()
+                    => binaryTree.Root.Right.Value.Should().Be(4);
+
+                [Test]
+                public void NewDeletedShouldHaveGreaterChildFromRemoved()
+                    => binaryTree.Root.Right.Left.Value.Should().Be(2);
             }
         }
     }
