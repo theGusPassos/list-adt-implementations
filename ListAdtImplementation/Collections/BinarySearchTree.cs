@@ -12,7 +12,7 @@ namespace ListAdtImplementation.Collections
                 Add(value);
         }
 
-        public virtual void Add(T value)
+        public void Add(T value)
         {
             if (Root == null)
                 Root = new Node { Value = value };
