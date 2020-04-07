@@ -157,7 +157,13 @@ namespace ListAdtImplementation.Collections
         public void PostorderTraversal(Action<T> func)
             => PostorderTraversal(func, Root);
 
-        private void PostorderTraversal(Action<T> func, Node node) { }
+        private void PostorderTraversal(Action<T> func, Node node) 
+        {
+            if (node == null) return;
+            PostorderTraversal(func, node.Left);
+            PostorderTraversal(func, node.Right);
+            func(node.Value);
+        }
 
         public class Node
         {
