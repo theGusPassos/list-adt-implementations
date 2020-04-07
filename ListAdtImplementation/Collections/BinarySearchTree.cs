@@ -6,7 +6,13 @@ namespace ListAdtImplementation.Collections
     {
         public Node Root { get; private set; }
 
-        public void Add(T value)
+        public void Add(params T[] values)
+        {
+            foreach (var value in values)
+                Add(value);
+        }
+
+        public virtual void Add(T value)
         {
             if (Root == null)
                 Root = new Node { Value = value };
@@ -56,7 +62,7 @@ namespace ListAdtImplementation.Collections
         private void Remove(Node node, T value)
         {
             var currentNode = node;
-            Node parent = currentNode.Parent ?? null;
+            Node parent = currentNode?.Parent;
 
             while (currentNode != null && value.CompareTo(currentNode.Value) != 0)
             {
@@ -125,6 +131,31 @@ namespace ListAdtImplementation.Collections
 
             return currentNode;
         }
+
+        public void InOrderTraversal(Action<T> func)
+            => InOrderTraversal(func, Root);
+
+        private void InOrderTraversal(Action<T> func, Node node)
+        {
+            if (node == null) return;
+            InOrderTraversal(func, node.Left);
+            func(node.Value);
+            InOrderTraversal(func, node.Right);
+        }
+
+        public void PreorderTraversal(Func<T, T> func)
+        {
+        }
+
+        private void PreorderTraversal(Func<T, T> func, Node node)
+        {
+        }
+
+        public void PostorderTraversal(Func<T, T> func)
+        {
+        }
+
+        private void PostorderTraversal(Func<T, T> func, Node node) { }
 
         public class Node
         {

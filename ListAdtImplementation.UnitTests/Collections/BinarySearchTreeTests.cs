@@ -2,6 +2,8 @@
 using FluentAssertions;
 using ListAdtImplementation.Collections;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ListAdtImplementation.UnitTests.Collections
 {
@@ -274,6 +276,28 @@ namespace ListAdtImplementation.UnitTests.Collections
                 public void NewDeletedShouldHaveChildFromRemoved()
                     => binaryTree.Root.Right.Left.Value.Should().Be(2);
             }
+        }
+    
+        [TestFixture]
+        public class InorderTraversal
+        {
+            private IList<int> expectedOrder;
+            private IList<int> traverseResult;
+
+            [OneTimeSetUp]
+            public void CreateAndTraverse()
+            {
+                expectedOrder = new List<int> { -4, -3, -1, 1, 2 };
+                var binaryTree = new BinarySearchTree<int>();
+                binaryTree.Add(1, 2, -3, -1, -4);
+
+                traverseResult = new List<int>();
+                binaryTree.InOrderTraversal(x => traverseResult.Add(x));
+            }
+
+            [Test]
+            public void ShouldHaveExpectedOrder()
+                => traverseResult.Should().ContainInOrder(expectedOrder);
         }
     }
 }
