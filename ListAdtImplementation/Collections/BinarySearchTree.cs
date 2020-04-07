@@ -143,19 +143,21 @@ namespace ListAdtImplementation.Collections
             InOrderTraversal(func, node.Right);
         }
 
-        public void PreorderTraversal(Func<T, T> func)
+        public void PreorderTraversal(Action<T> func)
+            => PreorderTraversal(func, Root);
+
+        private void PreorderTraversal(Action<T> func, Node node)
         {
+            if (node == null) return;
+            func(node.Value);
+            PreorderTraversal(func, node.Left);
+            PreorderTraversal(func, node.Right);
         }
 
-        private void PreorderTraversal(Func<T, T> func, Node node)
-        {
-        }
+        public void PostorderTraversal(Action<T> func)
+            => PostorderTraversal(func, Root);
 
-        public void PostorderTraversal(Func<T, T> func)
-        {
-        }
-
-        private void PostorderTraversal(Func<T, T> func, Node node) { }
+        private void PostorderTraversal(Action<T> func, Node node) { }
 
         public class Node
         {

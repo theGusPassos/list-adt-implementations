@@ -299,5 +299,28 @@ namespace ListAdtImplementation.UnitTests.Collections
             public void ShouldHaveExpectedOrder()
                 => traverseResult.Should().ContainInOrder(expectedOrder);
         }
+
+        [TestFixture]
+        public class PreorderTraversal
+        {
+            private IList<int> expectedOrder;
+            private IList<int> traverseResult;
+
+            [OneTimeSetUp]
+            public void CreateAndTraverse()
+            {
+                expectedOrder = new List<int> { 1, -3, -4, -1, 2 };
+                var binaryTree = new BinarySearchTree<int>();
+                binaryTree.Add(1, 2, -3, -1, -4);
+
+                traverseResult = new List<int>();
+                binaryTree.PreorderTraversal(x => traverseResult.Add(x));
+            }
+
+            [Test]
+            public void ShouldHaveExpectedOrder()
+                => traverseResult.Should().ContainInOrder(expectedOrder);
+
+        }
     }
 }
