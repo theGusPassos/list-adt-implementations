@@ -267,11 +267,11 @@ namespace ListAdtImplementation.UnitTests.Collections
                     => binaryTree.Contains(3).Should().BeFalse();
 
                 [Test]
-                public void DeletedShouldBeReplacedByMinChild()
+                public void DeletedShouldBeReplacedByMinRightChild()
                     => binaryTree.Root.Right.Value.Should().Be(4);
 
                 [Test]
-                public void NewDeletedShouldHaveGreaterChildFromRemoved()
+                public void NewDeletedShouldHaveChildFromRemoved()
                     => binaryTree.Root.Right.Left.Value.Should().Be(2);
             }
         }

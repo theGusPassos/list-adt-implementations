@@ -86,7 +86,7 @@ namespace ListAdtImplementation.Collections
                 }
             }
 
-            else if (currentNode.Left != null && currentNode.Right != null)
+            else if (currentNode.HasBothChildren())
             {
                 Node successor = FindMin(currentNode.Right);
                 currentNode.Value = successor.Value;
@@ -134,6 +134,8 @@ namespace ListAdtImplementation.Collections
             public T Value { get; set; }
 
             public bool IsLeaf() => Left == null && Right == null;
+            public bool HasBothChildren() => Left != null && Right != null;
+            public bool HasChildren() => Left != null || Right != null;
         }
     }
 }
