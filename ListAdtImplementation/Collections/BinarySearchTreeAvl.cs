@@ -4,14 +4,16 @@ namespace ListAdtImplementation.Collections
 {
     public class BinarySearchTreeAvl<T> where T : IComparable
     {
+        private const int ALLOWED_IMBALANCE = 1;
+
         public Node Root { get; private set; }
 
         public void Add(T value) => Root = Add(value, Root);
 
-        public Node Add(T value, Node node)
+        private Node Add(T value, Node node)
         {
             if (node == null)
-                return new Node { Value = value };
+                return new Node { Value = value, Height = 1 };
 
             int diff = value.CompareTo(node.Value);
 
@@ -25,7 +27,7 @@ namespace ListAdtImplementation.Collections
 
         public void Remove(T value) => Root = Remove(value, Root);
 
-        public Node Remove(T value, Node node)
+        private Node Remove(T value, Node node)
         {
             if (node == null) return null;
 
@@ -48,6 +50,11 @@ namespace ListAdtImplementation.Collections
                 node.Right = Remove(value, node.Right);
 
             return node;
+        }
+
+        private void Balance(Node node)
+        {
+            node.Height = node.GetMaxHeightInChildren() + 1;
         }
 
         public bool Contains(T value)
@@ -86,6 +93,13 @@ namespace ListAdtImplementation.Collections
             public bool IsLeaf() => Left == null && Right == null;
             public bool HasBothChildren() => Left != null && Right != null;
             public bool HasChildren() => Left != null || Right != null;
+
+            public int GetMaxHeightInChildren()
+            {
+                var rightHeight = Right != null ? Right.Height : -1;
+                var leftHeight = Left != null ? Left.Height : -1;
+                return Math.Max(rightHeight, leftHeight);
+            }
         }
     }
 }

@@ -187,5 +187,17 @@ namespace ListAdtImplementation.UnitTests.Collections
                     => binaryTree.Root.Right.Left.Value.Should().Be(2);
             }
         }
+    
+        [TestFixture]
+        public class HeightSetting
+        {
+            [Test]
+            public void RootShouldHaveHeightOneAsLeaf()
+            {
+                var binarySearchTree = new BinarySearchTreeAvl<int>();
+                binarySearchTree.Add(1);
+                binarySearchTree.Root.Height.Should().Be(1);
+            }
+        }
     }
 }
