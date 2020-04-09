@@ -198,6 +198,35 @@ namespace ListAdtImplementation.UnitTests.Collections
                 binarySearchTree.Add(1);
                 binarySearchTree.Root.Height.Should().Be(1);
             }
+
+            [Test]
+            public void RootShouldHaveHeight1WithChildren()
+            {
+                var binarySearchTree = new BinarySearchTreeAvl<int>();
+                binarySearchTree.Add(1);
+                binarySearchTree.Add(2);
+                binarySearchTree.Root.Height.Should().Be(2);
+            }
+
+            [Test]
+            public void RootShouldHaveHeight1With2Children()
+            {
+                var binarySearchTree = new BinarySearchTreeAvl<int>();
+                binarySearchTree.Add(1);
+                binarySearchTree.Add(2);
+                binarySearchTree.Add(-1);
+                binarySearchTree.Root.Height.Should().Be(2);
+            }
+
+            [Test]
+            public void RootShouldHaveHeight2With1ChildrenWithChild()
+            {
+                var binarySearchTree = new BinarySearchTreeAvl<int>();
+                binarySearchTree.Add(1);
+                binarySearchTree.Add(2);
+                binarySearchTree.Add(3);
+                binarySearchTree.Root.Height.Should().Be(3);
+            }
         }
     }
 }

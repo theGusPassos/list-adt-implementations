@@ -22,6 +22,7 @@ namespace ListAdtImplementation.Collections
             else if (diff > 0)
                 node.Right = Add(value, node.Right);
 
+            Balance(node);
             return node;
         }
 
