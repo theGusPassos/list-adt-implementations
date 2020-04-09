@@ -228,5 +228,34 @@ namespace ListAdtImplementation.UnitTests.Collections
                 binarySearchTree.Root.Height.Should().Be(3);
             }
         }
+    
+        [TestFixture]
+        public class SingleRotation
+        {
+            [TestFixture]
+            public class RootSingleRightRotation
+            {
+                private BinarySearchTreeAvl<int> tree;
+
+                [OneTimeSetUp]
+                public void TestSingleLeftRotationInRoot()
+                {
+                    tree = new BinarySearchTreeAvl<int>();
+                    tree.Add(1, 2, 3);
+                }
+
+                [Test]
+                public void RootShouldBe2() 
+                    => tree.Root.Value.Should().Be(2);
+
+                [Test]
+                public void RootLeftShouldBe1() 
+                    => tree.Root.Left.Value.Should().Be(1);
+                
+                [Test]
+                public void RootRightShouldBe3() 
+                    => tree.Root.Right.Value.Should().Be(3);
+            }
+        }
     }
 }

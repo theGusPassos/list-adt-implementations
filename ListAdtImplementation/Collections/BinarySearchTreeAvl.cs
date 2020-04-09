@@ -8,6 +8,12 @@ namespace ListAdtImplementation.Collections
 
         public Node Root { get; private set; }
 
+        public void Add(params T[] values)
+        {
+            foreach (var t in values)
+                Add(t);
+        }
+
         public void Add(T value) => Root = Add(value, Root);
 
         private Node Add(T value, Node node)
@@ -22,7 +28,9 @@ namespace ListAdtImplementation.Collections
             else if (diff > 0)
                 node.Right = Add(value, node.Right);
 
-            Balance(node);
+            node = Balance(node);
+            node.Height = node.GetMaxHeightInChildren() + 1;
+
             return node;
         }
 
@@ -53,9 +61,39 @@ namespace ListAdtImplementation.Collections
             return node;
         }
 
-        private void Balance(Node node)
+        private Node Balance(Node node)
         {
-            node.Height = node.GetMaxHeightInChildren() + 1;
+            if (Height(node.Right) - Height(node.Left) > ALLOWED_IMBALANCE)
+            {
+                return RotateWithRightChild(node);
+            }
+            else if (Height(node.Left) - Height(node.Right) > ALLOWED_IMBALANCE)
+            {
+                return RotateWithLeftChild(node);
+            }
+
+            return node;
+        }
+
+        public int Height(Node node)
+            => node != null ? node.Height : 0;
+
+        private Node RotateWithRightChild(Node node)
+        {
+            var newTop = node.Right;
+            node.Right = newTop.Left;
+            newTop.Left = node;
+
+            return newTop;
+        }
+
+        private Node RotateWithLeftChild(Node node)
+        {
+            var newTop = node.Left;
+            node.Left = newTop.Right;
+            newTop.Right = node;
+
+            return newTop;
         }
 
         public bool Contains(T value)
