@@ -65,11 +65,19 @@ namespace ListAdtImplementation.Collections
         {
             if (Height(node.Right) - Height(node.Left) > ALLOWED_IMBALANCE)
             {
-                return RotateWithRightChild(node);
+                if (Height(node.Right.Right) >= Height(node.Right.Left))
+                {
+                    return RotateWithRightChild(node);
+                }
+                else return DoubleRotateWithRightChild(node);
             }
             else if (Height(node.Left) - Height(node.Right) > ALLOWED_IMBALANCE)
             {
-                return RotateWithLeftChild(node);
+                if (Height(node.Left.Left) >= Height(node.Left.Right))
+                {
+                    return RotateWithLeftChild(node);
+                }
+                else return DoubleRotateWithLeftChild(node);
             }
 
             return node;
@@ -94,6 +102,18 @@ namespace ListAdtImplementation.Collections
             newTop.Right = node;
 
             return newTop;
+        }
+
+        private Node DoubleRotateWithRightChild(Node node)
+        {
+            node.Right = RotateWithLeftChild(node.Right);
+            return RotateWithRightChild(node);
+        }
+
+        private Node DoubleRotateWithLeftChild(Node node)
+        {
+            node.Left = RotateWithRightChild(node.Left);
+            return RotateWithLeftChild(node);
         }
 
         public bool Contains(T value)

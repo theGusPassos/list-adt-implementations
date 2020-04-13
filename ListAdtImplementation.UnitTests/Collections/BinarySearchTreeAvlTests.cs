@@ -280,5 +280,59 @@ namespace ListAdtImplementation.UnitTests.Collections
                     => tree.Root.Right.Value.Should().Be(1);
             }
         }
+
+        [TestFixture]
+        public class DoubleRotation
+        {
+            [TestFixture]
+            public class RootDoubleRightRotation
+            {
+                private BinarySearchTreeAvl<int> tree;
+
+                [OneTimeSetUp]
+                public void TestDoubleRightRotationInRoot()
+                {
+                    tree = new BinarySearchTreeAvl<int>();
+                    tree.Add(1, 3, 2);
+                }
+
+                [Test]
+                public void RootShouldBe2()
+                    => tree.Root.Value.Should().Be(2);
+                
+                [Test]
+                public void RootLeftShouldBe1() 
+                    => tree.Root.Left.Value.Should().Be(1);
+                
+                [Test]
+                public void RootRightShouldBe3() 
+                    => tree.Root.Right.Value.Should().Be(3);
+            }
+
+            [TestFixture]
+            public class RootDoubleLeftRotation
+            {
+                private BinarySearchTreeAvl<int> tree;
+
+                [OneTimeSetUp]
+                public void TestDoubleRightRotationInRoot()
+                {
+                    tree = new BinarySearchTreeAvl<int>();
+                    tree.Add(1, -1, 0);
+                }
+
+                [Test]
+                public void RootShouldBe0() 
+                    => tree.Root.Value.Should().Be(0);
+
+                [Test]
+                public void RootLeftShouldBeNegative1() 
+                    => tree.Root.Left.Value.Should().Be(-1);
+                
+                [Test]
+                public void RootRightShouldBe1() 
+                    => tree.Root.Right.Value.Should().Be(1);
+            }
+        }
     }
 }
