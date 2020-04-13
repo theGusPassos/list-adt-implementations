@@ -142,9 +142,7 @@ namespace ListAdtImplementation.UnitTests.Collections
                 public void CreateTree()
                 {
                     binaryTree = new BinarySearchTreeAvl<int>();
-                    binaryTree.Add(1);
-                    binaryTree.Add(2);
-                    binaryTree.Add(3);
+                    binaryTree.Add(1, -1, 2, 3);
                     binaryTree.Remove(2);
                 }
 
@@ -238,7 +236,7 @@ namespace ListAdtImplementation.UnitTests.Collections
                 private BinarySearchTreeAvl<int> tree;
 
                 [OneTimeSetUp]
-                public void TestSingleLeftRotationInRoot()
+                public void TestSingleRightRotationInRoot()
                 {
                     tree = new BinarySearchTreeAvl<int>();
                     tree.Add(1, 2, 3);
@@ -255,6 +253,31 @@ namespace ListAdtImplementation.UnitTests.Collections
                 [Test]
                 public void RootRightShouldBe3() 
                     => tree.Root.Right.Value.Should().Be(3);
+            }
+            
+            [TestFixture]
+            public class RootSingleLeftRotation
+            {
+                private BinarySearchTreeAvl<int> tree;
+
+                [OneTimeSetUp]
+                public void TestSingleLeftRotationInRoot()
+                {
+                    tree = new BinarySearchTreeAvl<int>();
+                    tree.Add(1, 0, -1);
+                }
+
+                [Test]
+                public void RootShouldBe0() 
+                    => tree.Root.Value.Should().Be(0);
+
+                [Test]
+                public void RootLeftShouldBeNegative1() 
+                    => tree.Root.Left.Value.Should().Be(-1);
+                
+                [Test]
+                public void RootRightShouldBe1() 
+                    => tree.Root.Right.Value.Should().Be(1);
             }
         }
     }
