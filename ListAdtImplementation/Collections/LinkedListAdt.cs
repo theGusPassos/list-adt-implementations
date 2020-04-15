@@ -6,8 +6,8 @@ namespace ListAdtImplementation.Collections
 {
     public class LinkedListAdt<Obj> : IEnumerable<Obj>
     {
-        public LinkedListNode Head { get; private set; }
-        public LinkedListNode Tail { get; private set; }
+        public LinkedListNode Head { get; set; }
+        public LinkedListNode Tail { get; set; }
         public LinkedListNode LastNode
         {
             get
